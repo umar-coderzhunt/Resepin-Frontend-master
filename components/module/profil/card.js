@@ -36,7 +36,7 @@ const Card = () => {
 
   const deletePost = async (id) => {
     try {
-      await axios.delete(`http://localhost:6000/food/${id}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/food/${id}`, {
         withCredentials: true,
       });
       alert("berhasil menghapus yaa");

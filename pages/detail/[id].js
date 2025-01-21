@@ -5,19 +5,16 @@ import Navbars from "../../components/base/navbar/navbar";
 import styles from "../../components/module/detail/style.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import Logout from "../../components/base/Logout";
-import Login from "../../components/base/Login";
 import moment from "moment";
 import style from "../../styles/addreceiped.module.css";
 import NavbarLogin from "../../components/base/navbarLogin/navbarLogin";
 
-const Detail = ({ resepin,isAuth }) => {
+const Detail = ({ resepin, isAuth }) => {
   const [title, setTitle] = useState("");
   const [video, setVideo] = useState("");
   const [create, setCreate] = useState("");
   // const data = new Date().toISOString().slice(0, 19).replace("T", " ");
-console.log(isAuth);
+  console.log(isAuth);
   useEffect(() => {
     setTitle(resepin.title);
     // setVideo((resepin.video.slice(1,-1).split(",")[0]).slice(1,-1))
@@ -145,7 +142,7 @@ export async function getServerSideProps(context) {
     console.log(cookie);
     const recipeID = context.params.id;
     console.log(recipeID);
-    
+
     let isAuth = false;
 
     if (context.req.headers.cookie) {

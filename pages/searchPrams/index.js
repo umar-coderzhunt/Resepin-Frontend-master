@@ -8,7 +8,7 @@ import Image from "next/image";
 import axios from "axios";
 import { Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useRouter, useSearchParams } from "next/router";
+import { useRouter } from "next/router";
 import {
   BsFillArrowLeftSquareFill,
   BsFillArrowRightSquareFill,

@@ -6,13 +6,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
 import style from "./navbar.module.css";
-import axios from "axios";
-import Router from "next/router";
 import Login from "../Login";
-const NavbarLogin = ({ classAdd, classHome, classProfil,children ,href}) => {
+const NavbarLogin = ({ classAdd, classHome, classProfil, children, href }) => {
 
-//  const cookie = req.headers.cookie;
-//  console.log(cookie);
+  //  const cookie = req.headers.cookie;
+  //  console.log(cookie);
 
   return (
     <>

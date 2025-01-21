@@ -6,8 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import { Dropdown } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { useRouter, useSearchParams } from "next/router";
+import { useRouter } from "next/router";
 import {
   BsFillArrowLeftSquareFill,
   BsFillArrowRightSquareFill,
@@ -57,7 +56,7 @@ const Content = () => {
     fetchData(counter, sort);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter, sort]);
-  
+
   const next = () => {
     setCounter(
       counter === paginate.totalPage ? paginate.totalPage : counter + 1

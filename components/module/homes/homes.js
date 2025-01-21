@@ -4,7 +4,6 @@ import styles from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import { useSelector } from "react-redux";;
-import Content from "./content";
 
 const Home = ({ resep, name, resepin }) => {
   const { user } = useSelector((state) => state.auths);

@@ -41,33 +41,33 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
   //   router.push("/profil");
   // };
   const deletePost = async (id) => {
-      Swal.fire({
-        title: "Are you sure to delete this resep?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await axios
-            .delete(`${process.env.NEXT_PUBLIC_API_URL}/food/${id}`, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              // fetchData();
-              // refreshData();
-              // navigate('/product')
-              Swal.fire(
-                "Deleted!",
-                "Your message has been deleted.",
-                "success"
-              );
-              console.log(res);
-            });
-        }
-      });
+    Swal.fire({
+      title: "Are you sure to delete this resep?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios
+          .delete(`${process.env.NEXT_PUBLIC_API_URL}/food/${id}`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            // fetchData();
+            // refreshData();
+            // navigate('/product')
+            Swal.fire(
+              "Deleted!",
+              "Your message has been deleted.",
+              "success"
+            );
+            console.log(res);
+          });
+      }
+    });
   }
 
   const [image, setImage] = useState([]);
@@ -75,7 +75,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
   const [fullname, setFullname] = useState(profil.fullname);
   const [imagePreview, setImagePreview] = useState(
     img ||
-      "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale"
+    "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale"
   );
   console.log(fullname);
   const submits = async (e) => {
@@ -85,7 +85,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
     formData.append("fullname", fullname);
     await axios
       .put(
-        `https://resepinaja.herokuapp.com/auth/update/5069ea2d-dde3-4559-a6fe-dfab8ac5a985`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/update/5069ea2d-dde3-4559-a6fe-dfab8ac5a985`,
         formData,
         {
           "content-type": "multipart/form-data",
@@ -117,7 +117,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
     formData.append("fullname", fullname);
     console.log("test");
     await axios
-      .put(`https://resepinaja.herokuapp.com/auth/update/${idUser}`, formData, {
+      .put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update/${idUser}`, formData, {
         "content-type": "multipart/form-data",
       })
       .then((res) => {

@@ -2,10 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import style from "../navbar/navbar.module.css";
-import axios from "axios";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
-import { IconName } from "react-icons/ai";
 
 const Logout = () => {
   const router = useRouter();

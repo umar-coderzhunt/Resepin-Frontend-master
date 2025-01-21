@@ -6,13 +6,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
 import style from "./navbar.module.css";
-import axios from "axios";
-import Router from "next/router";
 import Logout from "../Logout";
-const Navbars = ({ classAdd, classHome, classProfil,children }) => {
+const Navbars = ({ classAdd, classHome, classProfil, children }) => {
 
-//  const cookie = req.headers.cookie;
-//  console.log(cookie);
+  //  const cookie = req.headers.cookie;
+  //  console.log(cookie);
 
   return (
     <>
@@ -51,7 +49,7 @@ const Navbars = ({ classAdd, classHome, classProfil,children }) => {
               </Nav>
               <Nav className="ms-auto">
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-5">
-                 <Logout/>
+                  <Logout />
                 </ul>
               </Nav>
             </Navbar.Collapse>

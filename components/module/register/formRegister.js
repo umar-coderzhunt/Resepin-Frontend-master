@@ -1,31 +1,29 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import style from "./register.module.css"
 import Link from "next/link"
-import axios from "axios";
-import { useRouter } from "next/router";
 import { signUp } from "../../../redux/actions/userAction";
 import { useDispatch } from "react-redux";
 
 const FormRegister = () => {
 
   const dispatch = useDispatch();
-    const [registerData, setRegisterData] = useState({
-      fullname: "",
-      email: "",
-      phonenumber: "",
-      password: "",
-    });
-    const handleInput = (e) => {
-      e.persist();
-      setRegisterData({ ...registerData, [e.target.name]: e.target.value });
-    };
+  const [registerData, setRegisterData] = useState({
+    fullname: "",
+    email: "",
+    phonenumber: "",
+    password: "",
+  });
+  const handleInput = (e) => {
+    e.persist();
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
 
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      dispatch(signUp(registerData))
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(signUp(registerData))
+  };
 
 
   return (
