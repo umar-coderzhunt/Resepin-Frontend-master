@@ -1,0 +1,24 @@
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_bk'; /*memberikan nama bebas untuk font*/
+    src: url('../components/airbnb-cereal-font/AirbnbCereal_W_Bk.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+.welcome{
+    color: #EFC81A;
+     font-family: 'airbnb_bk';
+     font-weight: 700;
+}
+.subtitle{
+    font-size: 18px;
+    font-weight: 400;
+    color: #8692A6;
+}
+.start{
+   color: #EFC81A;
+     font-family: 'airbnb_bk';
+     font-weight: bold;
+     font-size: 30px !important;
+}
+.formRegis{
+    margin-top: -30px !important;
+}

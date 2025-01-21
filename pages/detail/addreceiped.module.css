@@ -1,0 +1,17 @@
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_md'; /*memberikan nama bebas untuk font*/
+    src: url('../../components/airbnb-cereal-font/AirbnbCereal_W_Md.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+.navActive{
+    color: blue !important;
+    font-family: 'airbnb_md';
+    text-decoration: none;
+    padding-top: 10px;
+}
+.navNon{
+     color: black !important;
+    font-family: 'airbnb_md';
+     text-decoration: none;
+      padding-top: 10px;
+}

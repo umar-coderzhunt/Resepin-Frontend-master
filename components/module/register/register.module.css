@@ -1,0 +1,54 @@
+
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_bk'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Bk.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+input.checkbox {
+    appearance: none;
+    position: relative;
+    background-color: #f8f4f4;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pageRegister{
+    text-decoration: none;
+    color: #EFC81A; 
+    margin-left: 10px;
+}
+.formRegis{
+    margin-top: -30px !important;
+}
+.formRegister{
+    margin-top: -15px !important;
+}
+.login-page{
+    margin-top: 10px ;
+     color: #696F79;
+    text-align: center;
+    margin-left: 70px;
+}
+.titleRegis{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+.codisionalRegis{
+    margin-top: -5px !important;
+     font-weight: 400;
+    font-size: 15px;
+    color: #696F79;
+}
+.btnSignup{
+     font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #fff;
+    font-size: 16px;
+    height: 45px;
+    background-color: #EFC81A;
+    margin-top: -10px !important;
+
+}

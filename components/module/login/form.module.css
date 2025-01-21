@@ -1,0 +1,62 @@
+
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Bd.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_bk'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Bk.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_blk'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Blk.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_lt'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Lt.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+ @font-face /*perintah untuk memanggil font eksternal*/
+{
+    font-family: 'airbnb_md'; /*memberikan nama bebas untuk font*/
+    src: url('../../airbnb-cereal-font/AirbnbCereal_W_Md.otf');/*memanggil file font eksternalnya di folder nexa*/
+}
+.title{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+.codisional{
+    font-weight: 400;
+    font-size: 16px;
+    color: #696F79;
+    display: none;
+}
+.btnsign{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: #fff;
+    font-size: 18px;
+    height: 45px;
+    background-color: #EFC81A;
+}
+.forgot{
+    font-weight: 400;
+    font-size: 14px;
+    color: #696F79;
+}
+.pageregister{
+    color: #EFC81A;
+    text-decoration: none;
+}
+.register{
+     color: #696F79;
+    text-align: center;
+    margin-left: 70px;
+}
+/* input{
+    background-color: red;
+} */

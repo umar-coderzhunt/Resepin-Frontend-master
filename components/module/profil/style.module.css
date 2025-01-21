@@ -1,0 +1,96 @@
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb_md"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Md.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+.profilImage {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  border: 2px solid #fffb0b;
+}
+.textProfil {
+  font-family: airbnb_md;
+}
+.garis{
+  border-top: 1.5px rgb(143, 142, 142) solid;
+width: 100%;
+
+}
+.choase,
+.choase a {
+  border: none;
+  color: #222222;
+  text-decoration: none;
+  font-family: airbnb_md;
+}
+.captionImage {
+  position: absolute;
+  bottom: 0px;
+  font-family: airbnb_md;
+  font-weight: 500;
+  color: #f6f5f4;
+  font-size: 28px;
+  background-color: #EFC81A;
+  border-radius: 5px 8px;
+  margin-left: 5px;
+  text-shadow: 2px 2px #252424;
+}
+.icondel {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  margin-right: 35px;
+  border: 2px solid #222222;
+  border-radius: 5px;
+   margin-top: 5px;
+  background-color: #f6f5f4;
+}
+.iconedit {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 2px;
+  border: 2px solid #222222;
+  border-radius: 10px;
+  background-color: #EFC81A;
+}
+.pen {
+  width: 25px;
+  height: 25px;
+  color: rgb(0, 0, 0);
+}
+.del {
+  width: 25px;
+  height: 25px;
+  color: rgb(0, 0, 0);
+}
+.uploads {
+  display: inline-block;
+  background-color: #EFC81A;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 40%;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 35px;
+}
+.inputName {
+  width: 160px;
+  display: block;
+  /* margin-left: 125px; */
+  margin-right: auto;
+  /* margin-top: -10px; */
+}
+.iconsupload{
+  /* margin-top: -100px; */
+}
+.selectAvatar{
+  margin-top: -50px!important;
+  margin-left: 120px;
+}

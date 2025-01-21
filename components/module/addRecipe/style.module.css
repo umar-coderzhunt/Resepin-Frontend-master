@@ -1,0 +1,92 @@
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Bd.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb_bk"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Bk.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb_blk"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Blk.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb_lt"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Lt.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+@font-face /*perintah untuk memanggil font eksternal*/ {
+  font-family: "airbnb_md"; /*memberikan nama bebas untuk font*/
+  src: url("../../airbnb-cereal-font/AirbnbCereal_W_Md.otf"); /*memanggil file font eksternalnya di folder nexa*/
+}
+.navLink {
+  color: blue;
+  font-family: airbnb_md;
+}
+
+.bgUpload {
+  background-color: #f6f5f4;
+  color: #666666;
+  font-family: airbnb_lt;
+  margin-top: 50px;
+  border: none;
+  height: 300px;
+}
+.bgUpload label {
+  font-size: 24px;
+  font-family: airbnb_md;
+  margin-top: 20px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#uploadPhoto {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+.title {
+  background-color: #f6f5f4;
+  color: #666666;
+  border: none;
+  height: 80px;
+  margin-top: 30px;
+  font-family: airbnb;
+}
+.ingredients {
+  background-color: #f6f5f4;
+  color: #666666;
+  border: none;
+  height: 200px;
+  margin-top: 30px;
+  font-family: airbnb;
+}
+.video {
+  background-color: #f6f5f4;
+  height: 50px;
+  margin-top: 30px;
+}
+.btnAdd {
+  background-color: #efc81a;
+  color: #f6f5f4;
+  width: 280px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product {
+  margin-top: 50px;
+  text-align: center;
+}
+.product a {
+  display: inline-block;
+  text-decoration: none !important;
+  margin: 0 auto;
+}
+
+.videos {
+  margin-top: 30px;
+  font-size: 24px;
+  font-family: airbnb_md;
+}

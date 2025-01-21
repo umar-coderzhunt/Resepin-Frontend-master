@@ -1,0 +1,23 @@
+.iconLogin {
+  border-radius: 50%;
+  background-color: #fff;
+  width: 50px;
+  margin-right: 4px;
+}
+.iconLogin img {
+  width: 25px;
+}
+.iconLogin :hover {
+  background-color: #fff;
+}
+.navLink {
+  color: blue;
+  font-family: airbnb_md;
+}
+
+@media (max-width: 576px) {
+  /* detail */
+  .text {
+    margin-left: 5px !important;
+  }
+}

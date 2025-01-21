@@ -1,0 +1,9 @@
+.product{
+    margin-top: 50px;
+     text-align: center;
+}
+.product a{
+    display:inline-block;
+    text-decoration: none !important;
+    margin:0 auto;
+}
