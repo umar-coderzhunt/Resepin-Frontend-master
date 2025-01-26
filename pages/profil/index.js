@@ -21,8 +21,11 @@ import {
   BsFillCloudUploadFill,
 } from "react-icons/bs";
 import Swal from "sweetalert2";
+let cookie
 
-const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
+const Prof = ({ profil, cookie, ProfilData, idUser, img, isAuth, resepin }) => {
+  console.log("shaza", ProfilData);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -52,8 +55,8 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`${process.env.NEXT_PUBLIC_API_URL}/food/${id}`, {
-            withCredentials: true,
+          .delete(`${process.env.NEXT_PUBLIC_API_URL}/food/delete/${id}`, {
+            // withCredentials: true,
           })
           .then((res) => {
             // fetchData();
@@ -74,7 +77,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
   const route = useRouter();
   const [fullname, setFullname] = useState(profil.fullname);
   const [imagePreview, setImagePreview] = useState(
-    img ||
+    `http://localhost:4500${img}` ||
     "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Kurt&hairColor=BlondeGolden&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Pale"
   );
   console.log(fullname);
@@ -83,12 +86,23 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("fullname", fullname);
+    formData.append("email", profil.email); // Email from the loaded profile
+
+    const token = localStorage.getItem("token"); // Assuming the token is saved in localStorage
+    if (!token) {
+      throw new Error("No token found. Please log in again.");
+    }
+    console.log("SARA", token);
+
     await axios
       .put(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/update/5069ea2d-dde3-4559-a6fe-dfab8ac5a985`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/update/${token}`,
         formData,
         {
           "content-type": "multipart/form-data",
+          // Authorization: `Bea/rer ${token}`, // Attach the token here
+
+
         }
       )
       .then((res) => {
@@ -104,7 +118,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "data yang anda inputkan salah",
+          text: "the data you entered is incorrect",
         });
         console.log(error);
       });
@@ -115,17 +129,27 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("fullname", fullname);
-    console.log("test");
+    formData.append("email", profil.email); // Email from the loaded profile
+
+    console.log("test", cookie);
+
+    const token = localStorage.getItem("token"); // Assuming the token is saved in localStorage
+    console.log("SARA", idUser);
+
     await axios
       .put(`${process.env.NEXT_PUBLIC_API_URL}/auth/update/${idUser}`, formData, {
-        "content-type": "multipart/form-data",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Cookie: cookie, // Pass the cookie from props
+        },
+        // withCredentials: true, // Ensure cookies are included in the request
       })
       .then((res) => {
         console.log(res);
         router.push("/profil");
         Swal.fire({
           icon: "success",
-          title: "Berhasil mengupdate resep",
+          title: "Successfully updated user",
           text: `resep : ${fullname}`,
         });
       })
@@ -133,7 +157,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "data yang anda inputkan salah",
+          text: "the data you entered is incorrect",
         });
         console.log(error);
       });
@@ -274,7 +298,7 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
                   {" "}
                   <img
                     src={imagePreview}
-                    alt=""
+                    alt="Profile Avatar"
                     className={`${style.profilImage}`}
                   />
                 </>
@@ -348,17 +372,16 @@ const Prof = ({ profil, cookie, idUser, img, isAuth, resepin }) => {
 export async function getServerSideProps(context) {
   try {
     const cookie = context.req.headers.cookie;
-    if (!cookie) {
-      context.res.writeHead(302, {
-        Location: `https://resepin.vercel.app/login`,
-      });
-      return {};
-    }
-    let isAuth = false;
 
-    if (cookie) {
-      isAuth = true;
+    if (!cookie) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
     }
+
     const { data: ProfilData } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/profil`,
       {
@@ -368,10 +391,11 @@ export async function getServerSideProps(context) {
         },
       }
     );
+    console.log("logged user", ProfilData);
+
     const idUser = ProfilData.data.iduser;
-    console.log(idUser);
     const { data: dataResep } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/food/user/${idUser}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/food`,
       {
         withCredentials: true,
         headers: {
@@ -379,21 +403,28 @@ export async function getServerSideProps(context) {
         },
       }
     );
-    // const result = ProfilData.data[0];
-    const images = ProfilData.data.image;
-    console.log(images);
+
     return {
       props: {
         profil: ProfilData.data,
-        img: images,
+        img: ProfilData.data.avatar,
         cookie,
+        ProfilData,
         idUser,
-        isAuth: isAuth,
+        isAuth: true,
         resepin: dataResep.data,
       },
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
   }
 }
+
 export default Prof;

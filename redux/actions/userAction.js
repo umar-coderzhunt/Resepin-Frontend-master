@@ -5,6 +5,10 @@ import Swal from "sweetalert2";
 
 export const loginUser = (dataForm) => async (dispatch) => {
   try {
+    console.log("hi");
+
+    console.log("dataform", dataForm);
+
     dispatch({ type: "USER_LOGIN_PENDING" });
     const result = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
@@ -65,17 +69,17 @@ export const loginUser = (dataForm) => async (dispatch) => {
     }
     Swal.fire("Good Job", "Log in Success", "success");
     Router.push("/home");
-   Swal.fire({
-     icon: "success",
-     title: "Selamat anda berhasil Login",
-     text: `Hallo ${user.name}`,
-   });
+    Swal.fire({
+      icon: "success",
+      title: "Selamat anda berhasil Login",
+      text: `Hallo ${user.name}`,
+    });
   } catch (error) {
     Router.push("/login");
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "pastikan email & password terisi dengan benar ",
+      text: "Make sure the email and password are filled in correctly ",
     });
     console.log(error);
   }
@@ -94,17 +98,17 @@ export const signUp = (dataForm) => async (dispatch) => {
     localStorage.setItem("refreshToken", user.refreshToken);
     dispatch({ type: "USER_REGISTER_SUCCESS", payload: user });
     Router.push("/login");
-     Swal.fire({
-       icon: "success",
-       title: "Berhasil daftar silahkan login",
-     });
+    Swal.fire({
+      icon: "success",
+      title: "Successful registration, please login",
+    });
   } catch (error) {
     Router.push("/register");
-     Swal.fire({
-       icon: "error",
-       title: "Oops...",
-       text: "anda gagal daftar, isi dengan benar yaa  ",
-     });
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "you failed to register, fill it in correctly ",
+    });
     console.log(error);
   }
 };

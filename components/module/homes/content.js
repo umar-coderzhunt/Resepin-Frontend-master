@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -7,37 +6,20 @@ import Image from "next/image";
 import axios from "axios";
 import { Dropdown } from "react-bootstrap";
 import { useRouter } from "next/router";
-import {
-  BsFillArrowLeftSquareFill,
-  BsFillArrowRightSquareFill,
-} from "react-icons/bs";
+import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from "react-icons/bs";
 
 const Content = () => {
   const [resep, setResep] = useState([]);
   const [counter, setCounter] = useState(1);
-  // const { user } = useSelector((state) => state.auth);
   const [searchValue, setSearchValue] = useState("");
-  const [paginate, setPagination] = useState({
-    currentPage: 1,
-    limit: 6,
-    sort: "",
-    search: "",
-  });
-
-
-  const handleSearchInput = (e) => {
-    e.persist();
-    setSearchValue(e.target.value);
-  };
-  const router = useRouter();
-  const onSubmitSearch = (e) => {
-    e.preventDefault();
-
-    router.push(`/searchPrams?keyword=${searchValue}`);
-  };
-
+  const [paginate, setPagination] = useState({ currentPage: 1, limit: 6, totalPage: 1 });
   const [sort, setSort] = useState("ASC");
-  // console.log(paginate);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchData(counter, sort);
+  }, [counter, sort]);
+
   async function fetchData(counter, sort) {
     try {
       const result = await axios({
@@ -45,96 +27,69 @@ const Content = () => {
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         url: `/food/filter/?page=${counter}&type=${sort}`,
       });
-      // console.log(result.data.pagination);
-      setPagination(result.data.pagination);
-      setResep(result.data.data);
+      setPagination(result.data.pagination || {});
+      setResep(result.data.data || []);
     } catch (error) {
-      // console.log(error);
+      console.error("Failed to fetch recipes:", error);
     }
   }
-  useEffect(() => {
-    fetchData(counter, sort);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counter, sort]);
 
-  const next = () => {
-    setCounter(
-      counter === paginate.totalPage ? paginate.totalPage : counter + 1
-    );
-    // console.log(counter);
+  const handleSearchInput = (e) => setSearchValue(e.target.value);
+
+  const onSubmitSearch = (e) => {
+    e.preventDefault();
+    router.push(`/searchPrams?keyword=${searchValue}`);
   };
-  const previos = () => {
-    setCounter(counter <= 1 ? 1 : counter - 1);
-  };
-  const sortby = () => {
-    setSort("DESC");
-  };
-  const sortAsc = () => {
-    setSort("ASC");
-  };
+
+  const next = () => setCounter(Math.min(counter + 1, paginate.totalPage));
+  const previous = () => setCounter(Math.max(counter - 1, 1));
+
+  const sortAsc = () => setSort("ASC");
+  const sortDesc = () => setSort("DESC");
+
   return (
     <div>
       <main className="mt-5">
         <div className="container mt-5">
-          <form className="d-flex " action="" onSubmit={onSubmitSearch}>
+          <form className="d-flex" onSubmit={onSubmitSearch}>
             <input
               type="search"
               className="form-control search-input"
               style={{ width: "75%" }}
               placeholder="Search"
               aria-label="Search"
-              aria-describedby="search-addon"
-              name="search"
               onChange={handleSearchInput}
             />
             <button className="btn btn-outline-warning" type="submit">
               Search
             </button>
           </form>
-          <div className="row row-cols-2 row-cols-sm-3 row-cols-md-5 mt-5">
-            <Dropdown>
-              <Dropdown.Toggle variant="warning" id="dropdown-basic">
-                Sorting Name
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>
-                  <button
-                    className={`${styles.sortAsc} btn me-3`}
-                    onClick={sortAsc}
-                  >
-                    Judul Resep A-Z
-                  </button>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <button className={`${styles.sortDsc} btn `} onClick={sortby}>
-                    Judul Resep Z-A
-                  </button>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-          <div className="row  row-cols-2 row-cols-lg-3 align-items-center g-3 mt-2">
-            {!resep ? (
-              <h4>Loading...</h4>
+          <Dropdown className="mt-3">
+            <Dropdown.Toggle variant="warning">Sorting</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={sortAsc}>Title A-Z</Dropdown.Item>
+              <Dropdown.Item onClick={sortDesc}>Title Z-A</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <div className="row row-cols-2 row-cols-lg-3 mt-4">
+            {resep.length === 0 ? (
+              <h4>No Recipes Found</h4>
             ) : (
               resep.map((reseps) => (
-                <div className="col " key={reseps.idfood}>
-                  <div
-                    className={`${styles.categories} card text-center d-flex `}
-                  >
+                <div className="col" key={reseps.idfood}>
+                  <div className={`${styles.categories} card text-center`}>
                     <Image
                       width="350px"
                       height="355px"
                       layout="responsive"
-                      src={reseps.image}
-                      alt="Bootstrap"
+                      src={reseps.image || "/placeholder.jpg"}
+                      alt={reseps.title || "Recipe"}
                       className="img-fluid"
                     />
-                    <div className="card-img-overlay text-white d-flex justify-content-center align-items-end">
+                    <div className="card-img-overlay d-flex justify-content-center align-items-end">
                       <Link href={`/detailResep/${reseps.idfood}`}>
-                        <a className={`${styles.captionCard}`}>
-                          {reseps.title}
-                        </a>
+                        <a className={`${styles.captionCard}`}>{reseps.title}</a>
                       </Link>
                     </div>
                   </div>
@@ -142,24 +97,15 @@ const Content = () => {
               ))
             )}
           </div>
-          <div
-            className={`${styles.pagination} row row-cols-4 row-cols-lg-12 align-items-center g-1 mt-5`}
-          >
-            <button
-              className={`${styles.nexts} btn btn-primary`}
-              style={{ width: 40, height: 40 }}
-              onClick={previos}
-            >
+
+          <div className="mt-4 d-flex justify-content-between">
+            <button className="btn btn-primary" onClick={previous}>
               <BsFillArrowLeftSquareFill />
             </button>
-            <p className={`${styles.curent}`}>
+            <span>
               {paginate.currentPage}/{paginate.totalPage}
-            </p>
-            <button
-              className={`${styles.next} btn btn-primary`}
-              style={{ width: 40, height: 40 }}
-              onClick={next}
-            >
+            </span>
+            <button className="btn btn-primary" onClick={next}>
               <BsFillArrowRightSquareFill />
             </button>
           </div>
@@ -168,32 +114,5 @@ const Content = () => {
     </div>
   );
 };
-// export async function getServerSideProps(context) {
-//   const cookie = context.req.headers.cookie;
-//   console.log(cookie)
-//   if (!cookie) {
-//     // Router.replace('/login')
-//     context.res.writeHead(302, {
-//       Location: `http://localhost:3000/login`,
-//     });
-//     return {};
-//   }
-//   const { data: RespData } = await axios.get(
-//     "http://localhost:5000/food",
-//     {
-//       withCredentials: true,
-//       headers: {
-//         Cookie: cookie,
-//       },
-//     }
-//   );
-//   // console.log(data);
-//   const name = "Wahyu";
-//   return {
-//     props: {
-//       name: name,
-//       resepin: RespData.data,
-//     }, // will be passed to the page component as props
-//   };
-// }
+
 export default Content;

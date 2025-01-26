@@ -17,7 +17,7 @@ const EditReciped = ({ resep, isAuth, img, videos }) => {
   console.log(img);
   const [image, setImage] = useState(
     img ||
-      "http://res.cloudinary.com/dwdpjepcr/image/upload/v1656516752/kyr46k6zvanumeppj4w2.png"
+    "http://res.cloudinary.com/dwdpjepcr/image/upload/v1656516752/kyr46k6zvanumeppj4w2.png"
   );
   const [title, setTitle] = useState("");
   const [ingrediens, setIngrediens] = useState("");
@@ -48,11 +48,11 @@ const EditReciped = ({ resep, isAuth, img, videos }) => {
         });
       })
       .catch((error) => {
-         Swal.fire({
-           icon: "error",
-           title: "Oops...",
-           text: "data yang anda inputkan salah",
-         });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "data yang anda inputkan salah",
+        });
         console.log(error);
       });
   };

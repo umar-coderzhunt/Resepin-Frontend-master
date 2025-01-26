@@ -7,8 +7,6 @@ import styles from "../../components/module/detailResep/style.module.css";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import Login from "../../components/base/Login";
-import Logout from "../../components/base/Logout";
 import NavbarLogin from "../../components/base/navbarLogin/navbarLogin";
 
 const DetailReseps = ({ resep, isAuth }) => {
@@ -20,10 +18,10 @@ const DetailReseps = ({ resep, isAuth }) => {
   // const data = new Date().toISOString().slice(0, 19).replace("T", " ");
   // console.log(data)
   useEffect(() => {
-    setTitle(resep.title);
-    setFood(resep.idfood);
-    setIngrediens(resep.ingrediens.split(","));
-    setImagePreview(resep.image);
+    setTitle(resep.title || "");
+    setFood(resep.idfood || "");
+    setIngrediens(Array.isArray(resep.ingrediens) ? resep.ingrediens : []);
+    setImagePreview(resep.image || "");
   }, [resep]);
   return (
     <div>
@@ -83,7 +81,7 @@ const DetailReseps = ({ resep, isAuth }) => {
             <div className="col-lg-4  mt-5">
               <h4 className={`${styles.titleIng}`}>Ingredients</h4>
               <ul className={`${styles.ingrediens}`}>
-                {!ingrediens ? (
+                {ingrediens.length === 0 ? (
                   <p>Loading...</p>
                 ) : (
                   ingrediens.map((ingredient, idx) => {

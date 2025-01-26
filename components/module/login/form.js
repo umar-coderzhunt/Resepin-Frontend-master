@@ -23,7 +23,7 @@ const Form = () => {
   };
   const handlesubmit = (e) => {
     e.preventDefault();
-   dispatch(loginUser(loginData));
+    dispatch(loginUser(loginData));
   };
 
   return (
@@ -84,7 +84,7 @@ const Form = () => {
         type="sumbit"
         className={`${style.btnsign} w-100 btn`}
         title="Login"
-       
+
       >
         {" "}
       </Button>

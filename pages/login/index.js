@@ -27,47 +27,51 @@ const Login = () => {
     });
   };
 
-    const handleSubmit = async () => {
-      try {
-        setLoading(true);
-        const config = {
-          withCredentials: true,
-        };
-        const result = await axios.post(
-          process.env.NEXT_PUBLIC_API_URL + "/auth/login",
-          user,
-          config
-        );
-        console.log(result);
-        const token = result.data.data.token;
-        const data = {
-          token: token,
-        };
-        const cookie = await fetch(`/api/loginnext`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        console.log(cookie);
-        const isToken = await cookie.json();
-        if (!isToken) {
-          return Swal.fire("Caution!", "Log in Failed", "error");
-        }
-        Swal.fire("Good Job", "Log in Success", "success");
-        router.push("/home");
-      } catch (error) {
-         router.push("/login");
-         Swal.fire({
-           icon: "error",
-           title: "Oops...",
-           text: "pastikan email & password terisi dengan benar ",
-         });
-        console.log(error);
+  const handleSubmit = async () => {
+
+    console.log("user", user, process.env.NEXT_PUBLIC_API_URL);
+
+    try {
+
+      setLoading(true);
+      const config = {
+        withCredentials: true,
+      };
+      const result = await axios.post(
+        ` ${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        user
+        // config
+      );
+      console.log(result);
+      const token = result.data.data.token;
+      const data = {
+        token: token,
+      };
+      const cookie = await fetch(`/api/loginnext`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      console.log(cookie);
+      const isToken = await cookie.json();
+      if (!isToken) {
+        return Swal.fire("Caution!", "Log in Failed", "error");
       }
-    };
+      Swal.fire("Good Job", "Log in Success", "success");
+      router.push("/home");
+    } catch (error) {
+      router.push("/login");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Make sure the email and password are filled in correctly",
+      });
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="container-fluid">
@@ -130,6 +134,8 @@ const Login = () => {
                           className="form-check-input"
                           type="checkbox"
                           value=""
+                          name="terms"
+
                           id="flexCheckDefault"
                           required
                         />

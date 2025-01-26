@@ -36,8 +36,8 @@ const AddReciped = ({ isAuth, idUser }) => {
         Router.push("/profil");
         Swal.fire({
           icon: "success",
-          title: "Berhasil mengupload resep",
-          text: `resep : ${title}`,
+          title: "Successfully uploaded recipe",
+          text: `recipe : ${title}`,
         });
       })
       .catch((error) => {
@@ -60,12 +60,12 @@ const AddReciped = ({ isAuth, idUser }) => {
     setVideo(file);
     console.log(e.target.files[0]);
   };
-  useEffect(() => {
-    if (isAuth === false) {
-      Swal.fire("belum login yaa ?", "silahkan login", "question");
-      Router.push("/login");
-    }
-  }, [isAuth]);
+  // useEffect(() => {
+  // //   if (isAuth === false) {
+  // //     Swal.fire("not logged in yet??", "please login", "question");
+  // //     Router.push("/login");
+  // //   }
+  // // }, [isAuth]);
   return (
     <>
       <Navbars
@@ -133,21 +133,19 @@ const AddReciped = ({ isAuth, idUser }) => {
 };
 
 
-export const getServerSideProps = async (context) => {
+export async function getServerSideProps(context) {
   try {
-    let isAuth = false;
     const cookie = context.req.headers.cookie;
-    console.log(cookie)
-    if (cookie === undefined) {
-      context.res.writeHead(302, {
-        Location: `https://resepin.vercel.app/login`,
-      });
-      return {};
+
+    if (!cookie) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
     }
-    if (!context.req.cookie) {
-      isAuth = true;
-    }
-    console.log(isAuth)
+
     const { data: ProfilData } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/profil`,
       {
@@ -157,13 +155,44 @@ export const getServerSideProps = async (context) => {
         },
       }
     );
+
     const idUser = ProfilData.data.iduser;
-    console.log(ProfilData);
+    const { data: dataResep } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/food`,
+      {
+        withCredentials: true,
+        headers: {
+          Cookie: cookie,
+        },
+      }
+    );
+
     return {
-      props: { isAuth, idUser,cookie:cookie },
+      props: {
+        profil: ProfilData.data,
+        img: ProfilData.data.image,
+        cookie,
+        idUser,
+        isAuth: true,
+        resepin: dataResep.data,
+      },
     };
   } catch (error) {
-    console.log(error);
+    console.error("Error in getServerSideProps:", error.message);
+
+    // Fallback in case of errors
+    return {
+      props: {
+        profil: null,
+        img: null,
+        cookie: null,
+        idUser: null,
+        isAuth: false,
+        resepin: [],
+        error: error.message,
+      },
+    };
   }
-};
+}
+
 export default AddReciped;

@@ -120,7 +120,7 @@ const FormRegister = () => {
             <button className={`${style.btnSignup} w-100 btn `} type="submit">
               Register Account
             </button>
-            <label className={`${style.loginPage}   text-center"`} htmlFor="">
+            <label className={`${style.loginPage} text-center"`} htmlFor="">
               Already have account ?
               <Link href="/login">
                 <a className={`${style.pageRegister}`}>Log in Here</a>
